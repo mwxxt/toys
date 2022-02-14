@@ -1,0 +1,115 @@
+
+
+<script type="text/javascript">
+// Заголовок страницы (h1)
+var title = 'Тест на знание английского Языка';
+// Подзаголовок (h2)
+var subtitle = "Этот тест позволяет оценить Ваши знания";
+// Это ваши вопросы
+var questions=[
+{
+       text: "Как переводится слово 'Hell ?'",
+    answers: ["Пол",
+          "Ад",
+          "Холл"],
+    correctAnswer: 1 // нумерация ответов с нуля!
+},
+{
+       text: " В каком времени составлено предложение - I had lost my old phone!",
+    answers: ["Present Simple Tense",
+          "Past Perfect Tense",
+          "Future Simple Tense"],
+    correctAnswer: 1
+},
+{
+    text: "Переведите - Мистер исключительный",
+    answers: ["Mr.Incredible ",
+          "Ms.Superman",
+          "Cool Guy"],
+    correctAnswer: 0
+},
+    {
+    text: "Переведите - Я люблю печенье",
+    answers: ["I love cookies ",
+          "I like bread",
+          "I like bakery"],
+    correctAnswer: 0
+},
+    {
+    text: "Переведите - Put your sunglasses off!",
+    answers: ["Надень свои очки",
+          "Я люблю очки",
+          "Сними свои очки"],
+    correctAnswer: 2
+},
+    {
+    text: "Переведите - Яблоко",
+    answers: ["Apple",
+          "PineApple",
+          "Chitos!"],
+    correctAnswer: 0
+}
+];
+
+var yourAns = new Array;
+var score = 0;
+
+function Engine(question, answer) {yourAns[question]=answer;}
+
+function Score(){
+   var answerText = "Результаты:\n";
+   for(var i = 0; i < yourAns.length; ++i){
+    var num = i+1;
+    answerText=answerText+"\n    Вопрос №"+ num +"";
+    if(yourAns[i]!=questions[i].correctAnswer){
+        answerText=answerText+"\n    Правильный ответ: " +
+        questions[i].answers[questions[i].correctAnswer] + "\n";
+      }
+        else{
+        answerText=answerText+": Верно! \n";
+        ++score;
+        }
+       }
+
+   answerText=answerText+"\nВсего правильных ответов: "+score+"\n";
+
+   alert(answerText);
+   yourAns = [];
+   score = 0;
+   clearForm("quiz");
+}
+function clearForm(name) {
+   var f = document.forms[name];
+   for(var i = 0; i < f.elements.length; ++i) {
+    if(f.elements[i].checked)
+        f.elements[i].checked = false;
+}
+}
+</script>
+
+<style>
+span.quest {font-weight: bold;}
+</style>
+
+<h1><script>document.write(title)</script></h1>
+<h2><script>document.write(subtitle)</script></h2>
+
+<form name="quiz">
+<ol>
+<script>
+for(var q=0; q<questions.length; ++q) {
+   var question = questions[q];
+   var idx = 1 + q;
+
+   document.writeln('<li><span class="quest">' + question.text + '</span><br/>');
+   for(var i in question.answers) {
+    document.writeln('<input type=radio name="q' + idx + '" value="' + i +
+    '" onClick="Engine(' + q + ', this.value)">' + question.answers[i] + '<br/>');
+}
+}
+</script>
+</ol>
+<input type="button" onClick="Score()" value="Проверить результаты" />
+
+</form>
+
